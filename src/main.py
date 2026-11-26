@@ -7,6 +7,7 @@ from exports import export_measurements_to_csv
 def main():
     simulator = Simulator(
         temperature_c=22.0,
+        pressure_hpa=1013.25,
         humidity_pct=50.0,
         device_id="living_room_001"
     )

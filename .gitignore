@@ -1,3 +1,14 @@
+# Local ESP configuration
+/esp/config.py
+
+# Generated measurement files
+/esp_measurements.csv
+/measurements_old.csv
+
+# Local pytesyt review directories
+/.pytest-csv-*/
+/.pytest-review-*/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

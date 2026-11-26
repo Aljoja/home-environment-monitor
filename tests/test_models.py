@@ -6,12 +6,14 @@ def test_measurement_str():
     measurement = Measurement(
         device_id="test_device",
         temperature_c=25.0,
-        humidity_pct=55.0
+        pressure_hpa=1013.25,
+        humidity_pct=55.0,
     )
-    expected_str = f"[{measurement.timestamp.strftime('%Y-%m-%d %H:%M:%S %z')}] test_device: 25.0 °C, 55.0% RH"
+    expected_str = f"[{measurement.timestamp.strftime('%Y-%m-%d %H:%M:%S %z')}] test_device: 25.0 °C, 1013.25 hPa, 55.0% RH"
     assert str(measurement) == expected_str
     assert measurement.device_id == "test_device"
     assert measurement.temperature_c == 25.0
+    assert measurement.pressure_hpa == 1013.25
     assert measurement.humidity_pct == 55.0
 
 def test_empty_device_id():
@@ -19,8 +21,9 @@ def test_empty_device_id():
         ValueError, 
         Measurement, 
         device_id="", 
-        temperature_c=25.0, 
-        humidity_pct=55.0
+        temperature_c=25.0,
+        pressure_hpa=1013.25, 
+        humidity_pct=55.0,
         )
 
 def test_whitespace_device_id():
@@ -29,21 +32,24 @@ def test_whitespace_device_id():
         Measurement, 
         device_id="   ", 
         temperature_c=25.0, 
-        humidity_pct=55.0
+        pressure_hpa=1013.25,
+        humidity_pct=55.0,
         )
 
 def test_humidity_limits():
     measurement_low = Measurement(
         device_id="test_device",
         temperature_c=25.0,
-        humidity_pct=0
+        pressure_hpa=1013.25,
+        humidity_pct=0,
     )
     assert measurement_low.humidity_pct == 0.0
 
     measurement_high = Measurement(
         device_id="test_device",
         temperature_c=25.0,
-        humidity_pct=100.0
+        pressure_hpa=1013.25,
+        humidity_pct=100.0,
     )
     assert measurement_high.humidity_pct == 100.0
 
@@ -53,6 +59,7 @@ def test_humidity_out_of_bounds():
         Measurement, 
         device_id="test_device", 
         temperature_c=25.0, 
+        pressure_hpa=1013.25,
         humidity_pct=-1.0
     )
 
@@ -61,6 +68,7 @@ def test_humidity_out_of_bounds():
         Measurement, 
         device_id="test_device", 
         temperature_c=25.0, 
+        pressure_hpa=1013.25,
         humidity_pct=101.0
     )
 
@@ -68,6 +76,7 @@ def test_temperature_limits():
     measurement_low = Measurement(
         device_id="test_device",
         temperature_c=-20.0,
+        pressure_hpa=1013.25,
         humidity_pct=50.0
     )
     assert measurement_low.temperature_c == -20.0
@@ -75,6 +84,7 @@ def test_temperature_limits():
     measurement_high = Measurement(
         device_id="test_device",
         temperature_c=60.0,
+        pressure_hpa=1013.25,
         humidity_pct=50.0
     )
     assert measurement_high.temperature_c == 60.0
@@ -85,6 +95,7 @@ def test_temperature_out_of_bounds():
         Measurement, 
         device_id="test_device", 
         temperature_c=-21.0, 
+        pressure_hpa=1013.25,
         humidity_pct=50.0
     )
 
@@ -93,6 +104,7 @@ def test_temperature_out_of_bounds():
         Measurement, 
         device_id="test_device", 
         temperature_c=61.0, 
+        pressure_hpa=1013.25,
         humidity_pct=50.0
     )
 
